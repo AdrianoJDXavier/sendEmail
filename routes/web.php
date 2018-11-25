@@ -12,5 +12,30 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    return view('addEmail');
+});
+
+$router->get('/emails/add', function () use ($router) {
+    $arq = $_REQUEST['emails'];
+
+    $ar = str_replace(';', ',', $arq);
+    $ar1 = str_replace(array("\r\n", "\r", "\n"), ',', $ar);
+    $ar2 = str_replace(' ', ',', $ar1);
+
+    $arr = explode(',', $ar2);
+
+    foreach ($arr as $email) {
+        // Validar email
+        $arquivo_data = 'emails.txt';
+        $fo = fopen($arquivo_data, 'a+');
+        $linha = fgets($fo, 1024);
+        echo $linha.'<br>';
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            fwrite($fo, $email);
+            fwrite($fo, "\n");
+            fclose($fo);
+        } else {
+            echo "$arq não é um email valido <br>";
+        }
+    }
 });
