@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <h2> Cadastrar Emails</h2>
+        <h2> Cadastrar Email</h2>
         <form action="/emails/add" method="get">
 Campo 1: <textarea name=emails>
 </textarea>    
